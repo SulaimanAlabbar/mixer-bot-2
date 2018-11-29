@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>InfiniteIQ</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container1">
+      <h1 class="botStatus offline">OFFLINE</h1>
+      <div class="container2">
+        <div class="container3">
+          <button class="roundButton">Start New Round</button>
+          <button class="voteButton">Disable Voting</button>
+          <form class="gameResults">
+            <div class="formInputs">
+              <select class="gunColor">
+                <option disabled="disabled" selected="selected"
+                  >Gun Color</option
+                >
+                <option value="gray" style="background-color: #BBBCBC"
+                  >Gray</option
+                >
+                <option value="green" style="background-color: #3F9A05"
+                  >Green</option
+                >
+                <option value="blue" style="background-color: #269DDC"
+                  >Blue</option
+                >
+                <option value="purple" style="background-color: #B150D7"
+                  >Purple</option
+                >
+                <option value="gold" style="background-color: #E18629"
+                  >Gold</option
+                >
+              </select>
+              <input type="text" placeholder="Number of kills" class="kills" />
+              <input type="text" placeholder="Placing" class="ranking" />
+            </div>
+            <input type="submit" class="formSubmit" />
+          </form>
+        </div>
+        <div class="container4">
+          <h2>Winners:</h2>
+          <ul class="winners"></ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      const electron = require("electron");
+      const { ipcRenderer } = electron;
+      let votingEnabled = true;
+      let recievedResults = false;
+      let gun;
+      let kills;
+      let ranking;
+
+      const botStatus = document.getElementsByClassName("botStatus");
+      const roundButton = document.getElementsByClassName("roundButton");
+      const voteButton = document.getElementsByClassName("voteButton");
+      const gunInput = document.getElementsByClassName("gunColor");
+      const killsInput = document.getElementsByClassName("kills");
+      const rankingInput = document.getElementsByClassName("ranking");
+      const submitButton = document.getElementsByClassName("formSubmit");
+      const winnersList = document.getElementsByClassName("winners");
+
+      gunInput[0].addEventListener("change", () => {
+        if (gunInput[0].selectedOptions[0].value === "gray")
+          gunInput[0].style.backgroundColor = "#BBBCBC";
+        else if (gunInput[0].selectedOptions[0].value === "green")
+          gunInput[0].style.backgroundColor = "#3F9A05";
+        else if (gunInput[0].selectedOptions[0].value === "blue")
+          gunInput[0].style.backgroundColor = "#269DDC";
+        else if (gunInput[0].selectedOptions[0].value === "purple")
+          gunInput[0].style.backgroundColor = "#B150D7";
+        else if (gunInput[0].selectedOptions[0].value === "gold")
+          gunInput[0].style.backgroundColor = "#E18629";
+      });
+
+      roundButton[0].addEventListener("click", () => {
+        if (botStatus[0].className.includes("online")) {
+          voteButton[0].innerHTML = "Disable Voting";
+          votingEnabled = true;
+          winnersList[0].innerHTML = "";
+          ipcRenderer.send("newRound", {});
+        }
+      });
+
+      voteButton[0].addEventListener("click", () => {
+        if (botStatus[0].className.includes("online")) {
+          voteButton[0].innerHTML = votingEnabled
+            ? "Enable Voting"
+            : "Disable Voting";
+          votingEnabled = !votingEnabled;
+          ipcRenderer.send("vote", {});
+        }
+      });
+
+      submitButton[0].addEventListener("click", event => {
+        event.preventDefault();
+
+        if (botStatus[0].className.includes("online")) {
+          gun = gunInput[0].value;
+          kills = killsInput[0].value;
+          ranking = rankingInput[0].value;
+
+          gunInput[0].selectedIndex = 0;
+          gunInput[0].style.backgroundColor = "#252939";
+          killsInput[0].value = "";
+          rankingInput[0].value = "";
+
+          if (
+            typeof Number(kills) == "number" &&
+            !isNaN(Number(kills) - Number(kills)) &&
+            (typeof Number(ranking) == "number" &&
+              !isNaN(Number(ranking) - Number(ranking))) &&
+            (/\S/.test(kills) && /\S/.test(ranking))
+          )
+            if (
+              Number(kills) >= 0 &&
+              Number(ranking) >= 1 &&
+              Number(ranking) <= 100
+            )
+              ipcRenderer.send("getResults", {
+                gun: gun,
+                kills: Number(kills),
+                ranking: Number(ranking)
+              });
+        }
+      });
+
+      ipcRenderer.on("giveResults", (event, payload) => {
+        if (payload.length === 0) return;
+
+        winnersList[0].innerHTML = "";
+        payload.forEach(winner => {
+          let li = document.createElement("li");
+          li.appendChild(document.createTextNode(winner));
+          winnersList[0].appendChild(li);
+        });
+      });
+
+      ipcRenderer.on("online", (event, payload) => {
+        botStatus[0].className = "botStatus online";
+        botStatus[0].innerHTML = "ONLINE";
+      });
+    </script>
+  </body>
+</html>

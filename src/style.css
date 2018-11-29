@@ -1,0 +1,209 @@
+@font-face {
+  font-family: bulletproof;
+  src: url("BulletproofBB.ttf");
+}
+
+html,
+body {
+  font-family: bulletproof;
+  background: #29374a;
+  color: white;
+  letter-spacing: 2px;
+}
+body {
+  margin: 0;
+}
+
+.container1 {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.botStatus {
+  order: 1;
+  position: relative;
+  font-size: 48px;
+  margin-bottom: 50px;
+  padding-right: 280px;
+  margin-right: 280px;
+  left: 280px;
+}
+
+.offline {
+  color: red;
+}
+.online {
+  color: rgb(7, 211, 7);
+}
+
+.container2 {
+  order: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.container3 {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+}
+.container4 {
+  order: 2;
+  justify-content: center;
+}
+
+.container4 h2 {
+  font-size: 32px;
+  line-height: 2;
+}
+
+.winners {
+  background: #252939;
+  border-radius: 10px;
+  border: 3px solid #505050;
+  padding: 20px 25px;
+}
+
+.container4 h2 {
+  margin: 0;
+}
+
+.winners li {
+  padding: 3px 0;
+}
+
+.roundButton {
+  font-family: bulletproof;
+  color: white;
+  background: #252939;
+  border-radius: 10px;
+  padding: 20px 0;
+  height: 100px;
+  width: 240px;
+  margin: 25px 0;
+  border: 3px solid #505050;
+  font-size: 22px;
+  transition: background-color 0.1s;
+  transition: transform 0.1s;
+  transform: scale(1);
+}
+
+.roundButton:hover {
+  background-color: #232635;
+  transform: scale(1.025);
+}
+
+.roundButton:active {
+  background-color: #191c27;
+  transform: scale(0.98);
+}
+
+.voteButton {
+  font-family: bulletproof;
+  color: white;
+  background: #252939;
+  border-radius: 10px;
+  padding: 20px 0;
+  margin: 25px 0;
+  height: 100px;
+  width: 240px;
+  border: 3px solid #505050;
+  font-size: 22px;
+  transition: background-color 0.1s;
+  transition: transform 0.1s;
+  transform: scale(1);
+}
+
+.voteButton:hover {
+  background-color: #232635;
+  transform: scale(1.025);
+}
+
+.voteButton:active {
+  background-color: #191c27;
+  transform: scale(0.98);
+}
+
+.gameResults {
+  order: 3;
+  display: flex;
+  flex-direction: row;
+}
+
+.formInputs {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+}
+.gunColor {
+  order: 1;
+  font-family: bulletproof;
+  color: white;
+  background: #252939;
+  border-radius: 2px;
+  height: 40px;
+  width: 250px;
+  margin: 5px 0;
+  font-size: 16px;
+  padding-left: 5px;
+  letter-spacing: 2px;
+  line-height: 1.7;
+  user-select: none;
+}
+
+.kills {
+  order: 2;
+  font-family: bulletproof;
+  color: white;
+  background: #252939;
+  border-radius: 2px;
+  height: 40px;
+  width: 240px;
+  margin: 5px 0;
+  font-size: 16px;
+  padding-left: 5px;
+  letter-spacing: 2px;
+  line-height: 1.7;
+}
+.ranking {
+  order: 3;
+  font-family: bulletproof;
+  color: white;
+  background: #252939;
+  border-radius: 2px;
+  height: 40px;
+  width: 240px;
+  margin: 5px 0;
+  font-size: 16px;
+  padding-left: 5px;
+  letter-spacing: 2px;
+  line-height: 1.7;
+}
+.formSubmit {
+  order: 2;
+  margin-left: 5px;
+  font-family: bulletproof;
+  color: white;
+  background: #252939;
+  border-radius: 10px;
+  width: 100px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  line-height: 1.7;
+  transition: background-color 0.1s;
+  transition: transform 0.1s;
+  transform: scale(1);
+}
+.formSubmit:hover {
+  background-color: #232635;
+  transform: scale(1.025);
+}
+.formSubmit:active {
+  background-color: #191c27;
+  transform: scale(0.98);
+}

@@ -1,0 +1,25 @@
+{
+  "name": "mixerbot",
+  "productName": "InfiniteIQ",
+  "version": "1.0.0",
+  "description": "mixer interactive bot",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "package-win": "electron-packager . InfiniteIQ --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"InfiniteIQ\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@mixer/interactive-node": "^3.0.0",
+    "winston": "^3.1.0",
+    "winston-daily-rotate-file": "^3.5.1",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {
+    "electron": "^3.0.10",
+    "electron-packager": "^12.2.0",
+    "nodemon": "^1.18.6"
+  }
+}
